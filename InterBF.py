@@ -55,9 +55,7 @@ class InterBFInterpreter:
             if i == 0:
                 if self.input is None:
                     self.input = input()
-                    tape[tape_pointer] = ord(self.input[0])
-                    self.input_index = 1
-                elif self.input_index==len(self.input):
+                if self.input_index==len(self.input):
                     self.input_index = 0
                     self.input = None
                     tape[tape_pointer] = 0
