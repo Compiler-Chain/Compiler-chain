@@ -16,6 +16,9 @@ class InterBFInterpreter:
             elif program_string[i] == ".":
                 parsed_prog.append(1)
                 i += 1
+            elif program_string[i] == "?":
+                parsed_prog.append(2)
+                i += 1
             elif program_string[i] in "+-><":
                 effects = {}
                 offset = 0
@@ -51,6 +54,7 @@ class InterBFInterpreter:
         return tuple(parsed_prog)
 
     def run(self, program, tape, tape_pointer):
+        import random
         for i in program:
             if i == 0:
                 if self.input is None:
@@ -65,6 +69,8 @@ class InterBFInterpreter:
 
             elif i == 1:
                 print(chr(tape[tape_pointer]),end = "")
+            elif i == 2:
+                tape[tape_pointer] = random.randint(0,tape[tape_pointer])
             elif i[0] == 0:
                 for cell_change in i[1:-1]:
                     cells_from_right = (len(tape)-(tape_pointer + 1))
