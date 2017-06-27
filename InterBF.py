@@ -1,7 +1,6 @@
 class InterBFInterpreter:
     def __init__(self, program):
         import re
-        program = program[:program.index("!")]
         program = re.sub(r"[^+\-<>.,\[\]]", "", program)
         self.input = None
         self.input_index = 0
@@ -91,10 +90,7 @@ class InterBFInterpreter:
 
 
 if __name__ == "__main__":
-    in_program = []
-    line = ""
-    while "!" not in line:
-        line = input()
-        in_program.append(line)
-    in_program = ''.join(in_program)
-    InterBFInterpreter(in_program)
+    import argparse
+    parser = argparse.ArgumentParser(description="Interpret the InterBF language")
+    parser.add_argument("program", metavar="program", type=str, help="path to the program")
+    InterBFInterpreter(parser.parse_args().program)
