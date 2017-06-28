@@ -93,4 +93,4 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Interpret the InterBF language")
     parser.add_argument("program", metavar="program", type=str, help="path to the program")
-    InterBFInterpreter(parser.parse_args().program)
+    InterBFInterpreter(open(parser.parse_args().program).read())
