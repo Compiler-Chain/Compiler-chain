@@ -67,7 +67,8 @@ class InterBFInterpreter:
                     self.input_index += 1
 
             elif i == 1:
-                print(chr(tape[tape_pointer]),end = "")
+                if tape[tape_pointer]<0x80:
+                    print(chr(tape[tape_pointer]),end = "")
             elif i == 2:
                 tape[tape_pointer] = random.randint(0,tape[tape_pointer])
             elif i[0] == 0:
