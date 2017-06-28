@@ -7,11 +7,17 @@ Make a compiler in the most recent language, from a new language to the language
 
 # Rules:
 You may not make a compiler for a previously used language
+
 Your language must have interactive io
+
 Your language must be Turing complete.
+
 Your language must have a way to generate random numbers/random bits (if you have random bits then you can get random numbers but with unknown time. in fact bf does this anyway)
+
 Your language compiler must not be turing complete on the assumption that the numbers from the previous language are arbitrarily large, when they are not
+
 Please don't bungle up stuff by submitting multiple compilers in the same language.
+
 Give others a chance to get a language in there: if you have just submitted a language, wait until some time has passed, or someone else has made an interpreter
 
 
