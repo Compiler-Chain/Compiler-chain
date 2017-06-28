@@ -1,4 +1,5 @@
 [
+	## Description
 	The program consists of two stacks of bytes, the order and position of which does not matter.
 
 	The commands are:
@@ -26,6 +27,59 @@
 	* `C`: COPY, peek the value from the top of the current stack and push it to the top of the other, changes active stack.
 	* `!`: NOT, if the top of the current stack is 0, set it to 1, otherwise, set it to 0.
 	* `0-9`: Push a new value to the current stack with the associated value.
+
+	##Memory Model
+
+	At initilization, memory looks like:
+
+		00001010
+
+	which is split up like
+
+		0000 10 10
+		|    |  \_ Stack A, the cursor starts on the second byte of this
+		|    \____ Stack B
+		\_________ Catch
+
+	after this, memory is split into groups of two groups of two, like
+
+		0000 10 10 00 00 00 00
+
+	every two alternates the stack, so
+
+	 	0000 10 10 00 00 00 00
+	 	     B  A  B  A  B  A
+
+	the first byte of these chunks is referred to the "Rail", it's used to identify the length of the stack. Either rail can extend past the other. The second byte is the data.
+
+		0000 10 10 00 10 00 10
+			 |  |  \__|__\__|_ Stack B does not continue, it's rail is clippped
+             \__\_____\_____\_ Stack A does continue, it's rail contiues.
+
+	### Swapping Stacks
+
+    When changing stack, the pointer shifts itself one to the right, so it's put on the opposite stack's rail.
+
+    	0000 10 10 00 10 00 10
+    	         ^
+    	becomes...
+    	0000 10 10 00 10 00 10
+                   ^
+
+    Then, aslong as the value under the pointer is 1, it moves as far right as possible, jumping by multiples of 4 to stay ont his rail. This will slip one over the end. In this case, it does nothing.
+    Afterwards, it goes left aslong as the rail the cursor is on is zero.
+	
+		0000 10 10 00 10 00 10
+		           ^
+		becomes...
+		0000 10 10 00 10 00 10
+		     ^
+	
+	Then, it just moves back to the respective byte, by moving right.
+
+		0000 10 10 00 10 00 10
+		      ^
+
 ]
 
 >>>>+>>+>>>>+>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.>>>+>++++++++
